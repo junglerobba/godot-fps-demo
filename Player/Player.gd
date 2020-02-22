@@ -17,11 +17,11 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED \
-		&& event is InputEventMouseButton \
-		&& event.pressed:
+	&& event is InputEventMouseButton \
+	&& event.pressed:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	if event is InputEventMouseMotion \
-		&& Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+	&& Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		head.rotate_y(deg2rad(-event.relative.x * mouse_sensitivity))
 		var x_delta: float = event.relative.y * mouse_sensitivity
 		if camera_x_rotation + x_delta > -90 && camera_x_rotation + x_delta < 90:
@@ -50,7 +50,8 @@ func _physics_process(delta: float) -> void:
 	velocity = velocity.linear_interpolate(direction * speed, acceleration * delta)
 	velocity.y -= gravity
 
-	if Input.is_action_just_pressed("jump") && is_on_floor():
+	if Input.is_action_just_pressed("jump") \
+	&& is_on_floor():
 		velocity.y += jump_power
 
 	velocity = move_and_slide(velocity, Vector3.UP)
