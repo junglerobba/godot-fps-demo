@@ -66,39 +66,3 @@ shape = SubResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6455, 2.73161, 0 )
 mesh = SubResource( 4 )
 material/0 = null
-
-[node name="HUD" type="Control" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="HUD"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -241.0
-margin_top = -94.0
-text = "Ammo
-2/2"
-align = 2
-valign = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Crosshair" type="ColorRect" parent="HUD"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -5.0
-margin_top = -5.0
-margin_right = 5.0
-margin_bottom = 5.0
-color = Color( 0.898039, 0.176471, 0.941176, 0.690196 )
-__meta__ = {
-"_edit_use_anchors_": false
-}

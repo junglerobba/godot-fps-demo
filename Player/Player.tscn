@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
-[ext_resource path="res://Player/Shotgun.gd" type="Script" id=2]
+[ext_resource path="res://Player/Weapon.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/step01.wav" type="AudioStream" id=4]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.75
@@ -35,3 +37,8 @@ material/0 = null
 
 [node name="Weapon" type="Node" parent="."]
 script = ExtResource( 2 )
+
+[node name="HUD" parent="." instance=ExtResource( 3 )]
+
+[node name="FootStep" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )

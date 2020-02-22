@@ -4,10 +4,11 @@ export var speed: int = 10
 export var acceleration: int = 5
 export var gravity: float = 0.98
 export var jump_power: int = 30
-export var mouse_sensitivity: float = 0.3
+export var mouse_sensitivity: float = 0.1
 
 onready var head: Spatial = $Head
 onready var camera: Camera = $Head/Camera
+onready var footstep: AudioStreamPlayer = $FootStep
 
 var velocity: = Vector3()
 var camera_x_rotation: float = 0
@@ -53,5 +54,14 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump") \
 	&& is_on_floor():
 		velocity.y += jump_power
+	
+	if is_moving_on_floor(velocity) && \
+	!footstep.playing:
+		footstep.play()
 
 	velocity = move_and_slide(velocity, Vector3.UP)
+
+func is_moving_on_floor(velocity: Vector3) -> bool:
+	return (velocity.x > 5 || velocity.x < -5 \
+	|| velocity.z > 5 || velocity.z < -5) \
+	&& is_on_floor()
