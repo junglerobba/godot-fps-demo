@@ -2,8 +2,8 @@ extends Node
 
 class_name Weapon
 
-onready var raycast: RayCast = $"../Head/Camera/RayCast"
-onready var ammo_label: Label = $"../HUD/Label"
+onready var raycast: RayCast = $"../../Head/Camera/RayCast"
+onready var ammo_label: Label = $"../../HUD/Label"
 onready var animation_player: AnimationPlayer = $AnimationPlayer
 onready var audio_player: AudioStreamPlayer = $GunSound
 onready var reload_audio_player: AudioStreamPlayer = $ReloadSound
