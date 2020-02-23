@@ -3,6 +3,7 @@ extends KinematicBody
 class_name Player
 
 export var speed: int = 10
+export var sprint_speed: int = 20
 export var acceleration: int = 5
 export var gravity: float = 0.98
 export var jump_power: int = 30
@@ -51,13 +52,15 @@ func _physics_process(delta: float) -> void:
 
 	direction = direction.normalized()
 
-	velocity = velocity.linear_interpolate(direction * speed, acceleration * delta)
+	var temp_speed: = sprint_speed if Input.is_action_pressed("move_sprint") else speed
+
+	velocity = velocity.linear_interpolate(direction * temp_speed, acceleration * delta)
 	velocity.y -= gravity
 
 	if Input.is_action_just_pressed("jump") \
 	&& is_on_floor():
 		velocity.y += jump_power
-	
+
 	if is_moving_on_floor(velocity) && \
 	!footstep.playing:
 		footstep.play()
