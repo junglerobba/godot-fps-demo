@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
-[ext_resource path="res://Player/Weapon.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/step01.wav" type="AudioStream" id=4]
 [ext_resource path="res://Player/Interaction.gd" type="Script" id=5]
@@ -75,9 +74,6 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0
 visible = false
 mesh = SubResource( 2 )
 material/0 = null
-
-[node name="Weapon" type="Node" parent="."]
-script = ExtResource( 2 )
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 

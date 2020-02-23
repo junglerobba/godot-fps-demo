@@ -19,10 +19,24 @@ onready var crouch_raycast: RayCast = $"Head/CrouchRayCast"
 var velocity: = Vector3()
 var camera_x_rotation: float = 0
 var crouched: bool = false
+var weapon: Weapon = null
+
+var weapon_selected: int = 0
+var weapons: Array = [
+	{
+		'weapon': load("res://Player/Weapons/Pistol.tscn"),
+		'ammo': -1
+	},
+	{
+		'weapon': load("res://Player/Weapons/Shotgun.tscn"),
+		'ammo': -1
+	}
+]
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	get_tree().call_group("Enemies", "set_player", self)
+	select_weapon(weapon_selected)
 
 func _input(event: InputEvent) -> void:
 	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED \
@@ -36,6 +50,11 @@ func _input(event: InputEvent) -> void:
 		if camera_x_rotation + x_delta > -90 && camera_x_rotation + x_delta < 90:
 			camera.rotate_x(deg2rad(-event.relative.y * mouse_sensitivity))
 			camera_x_rotation += x_delta
+	
+	if Input.is_action_just_pressed("inventory_01"):
+		select_weapon(0)
+	if Input.is_action_just_pressed("inventory_02"):
+		select_weapon(1)
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -94,3 +113,15 @@ func is_moving_on_floor(velocity: Vector3) -> bool:
 	return (velocity.x > 5 || velocity.x < -5 \
 	|| velocity.z > 5 || velocity.z < -5) \
 	&& is_on_floor()
+
+func select_weapon(index: int) -> void:
+	if !index >= len(weapons) && index >= 0:
+		if weapon != null:
+			weapons[weapon_selected].ammo = weapon.current_ammo
+			remove_child(weapon)
+			weapon = null
+		weapon_selected = index
+		weapon = weapons[index].weapon.instance()
+		weapon.set_ammo(weapons[index].ammo)
+		weapon.set_name("Weapon")
+		add_child(weapon)

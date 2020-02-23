@@ -4,9 +4,9 @@ class_name Weapon
 
 onready var raycast: RayCast = $"../Head/Camera/RayCast"
 onready var ammo_label: Label = $"../HUD/Label"
-onready var animation_player: AnimationPlayer = $"../HUD/AnimationPlayer"
-onready var audio_player: AudioStreamPlayer = $"../HUD/GunSound"
-onready var reload_audio_player: AudioStreamPlayer = $"../HUD/ReloadSound"
+onready var animation_player: AnimationPlayer = $AnimationPlayer
+onready var audio_player: AudioStreamPlayer = $GunSound
+onready var reload_audio_player: AudioStreamPlayer = $ReloadSound
 
 export var fire_rate: float = 0.6
 export var clip_size: int = 15
@@ -17,8 +17,8 @@ var current_ammo: int
 var can_fire: bool = true
 var reloading: bool = false
 
-func _ready() -> void:
-	current_ammo = clip_size
+func set_ammo(ammo: int) -> void:
+	current_ammo = ammo if ammo > -1 else clip_size
 
 func _process(_delta: float) -> void:
 	if reloading:
