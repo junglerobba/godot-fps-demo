@@ -30,6 +30,10 @@ var weapons: Array = [
 	{
 		'weapon': load("res://Player/Weapons/Shotgun.tscn"),
 		'ammo': -1
+	},
+	{
+		'weapon': load("res://Player/Weapons/SMG.tscn"),
+		'ammo': -1
 	}
 ]
 
@@ -55,6 +59,10 @@ func _input(event: InputEvent) -> void:
 		select_weapon(0)
 	if Input.is_action_just_pressed("inventory_02"):
 		select_weapon(1)
+	if Input.is_action_just_pressed("inventory_03"):
+		select_weapon(2)
+	if Input.is_action_just_pressed("inventory_04"):
+		select_weapon(3)
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
