@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Enemies/Zombie.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Interactable/InteractableLightswitch.gd" type="Script" id=3]
 [ext_resource path="res://default_env.tres" type="Environment" id=4]
+[ext_resource path="res://Interactable/Door.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -20,7 +21,7 @@ albedo_color = Color( 1, 0, 0, 1 )
 [node name="World" type="Spatial"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.16586, 0 )
+transform = Transform( -0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, -0.258819, 7.5, 2.16586, 0 )
 
 [node name="Ground" type="MeshInstance" parent="."]
 transform = Transform( 17.7667, 0, 0, 0, 0.140342, 0, 0, 0, 15.5212, -0.0794659, 0, -0.796016 )
@@ -30,6 +31,26 @@ material/0 = null
 [node name="StaticBody" type="StaticBody" parent="Ground"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Ground/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="Ground5" type="MeshInstance" parent="."]
+transform = Transform( 0.177667, 0, 0, 0, 3.35271, 0, 0, 0, -7.1025, 4.72053, 3.5, -9.09602 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Ground5"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Ground5/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="Ground6" type="MeshInstance" parent="."]
+transform = Transform( 0.177667, 0, 0, 0, 3.35271, 0, 0, 0, -7.1025, 4.72053, 3.5, 7.10398 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Ground6"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Ground6/StaticBody"]
 shape = SubResource( 2 )
 
 [node name="Ground3" type="MeshInstance" parent="."]
@@ -130,7 +151,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5746, 11.5661, -4.66933 )
 environment = ExtResource( 4 )
 
 [node name="SpotLight" type="SpotLight" parent="."]
-transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 4.47463, 2.13605, -2.01007 )
+transform = Transform( -1.5737e-07, 0.258819, -0.965926, 4.21671e-08, 0.965926, 0.258819, 1, 3.55271e-15, -1.62921e-07, 5.27463, 4.53605, -1.01007 )
 light_energy = 1.48
 shadow_enabled = true
 spot_range = 16.2
@@ -142,3 +163,6 @@ light_energy = 1.48
 shadow_enabled = true
 spot_range = 16.2
 spot_angle = 77.7
+
+[node name="Door" parent="." instance=ExtResource( 5 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.8, 2.3, -1 )
