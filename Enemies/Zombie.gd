@@ -38,6 +38,7 @@ func hit(damage: float) -> void:
 	health -= damage
 	if health > 0:
 		anim_player.play("hit")
+		$DamageAudioPlayer.play()
 		yield(anim_player, "animation_finished")
 		walk()
 	else:
@@ -46,6 +47,7 @@ func hit(damage: float) -> void:
 func kill() -> void:
 	dead = true
 	$CollisionShape.disabled = true
+	$DeathAudioPlayer.play()
 	anim_player.play("die")
 
 func set_player(player: Player):
