@@ -6,19 +6,23 @@ var weapon_selected: int = 0
 var weapons: Array = [
 	{
 		'weapon': load("res://Player/Weapons/Fists.tscn"),
+		'magazine': -1,
 		'ammo': -1
 	},
 	{
 		'weapon': load("res://Player/Weapons/Pistol.tscn"),
+		'magazine': -1,
 		'ammo': -1
 	},
 	{
 		'weapon': load("res://Player/Weapons/Shotgun.tscn"),
-		'ammo': -1
+		'magazine': -1,
+		'ammo': 15
 	},
 	{
 		'weapon': load("res://Player/Weapons/SMG.tscn"),
-		'ammo': -1
+		'magazine': -1,
+		'ammo': 50
 	}
 ]
 
@@ -37,11 +41,12 @@ func _input(event: InputEvent) -> void:
 func select_weapon(index: int) -> void:
 	if !index >= len(weapons) && index >= 0:
 		if weapon != null:
-			weapons[weapon_selected].ammo = weapon.current_ammo
+			weapons[weapon_selected].magazine = weapon.current_ammo
+			weapons[weapon_selected].ammo = weapon.reserve_ammo
 			remove_child(weapon)
 			weapon = null
 		weapon_selected = index
 		weapon = weapons[index].weapon.instance()
-		weapon.set_ammo(weapons[index].ammo)
+		weapon.set_ammo(weapons[index].magazine, weapons[index].ammo)
 		weapon.set_name("Weapon")
 		add_child(weapon)
