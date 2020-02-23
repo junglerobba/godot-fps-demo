@@ -12,22 +12,30 @@ export var fire_rate: float = 0.6
 export var clip_size: int = 15
 export var reload_rate: float = 1.5
 export var damage: float = 1.0
+export var fire_range: int = 200
 
 var current_ammo: int
 var can_fire: bool = true
 var reloading: bool = false
 
+func _ready() -> void:
+	raycast.cast_to = Vector3(0, 0, -fire_range)
+
 func set_ammo(ammo: int) -> void:
 	current_ammo = ammo if ammo > -1 else clip_size
 
 func _process(_delta: float) -> void:
+	if clip_size == -1:
+		ammo_label.set_visible(false)
+	else:
+		ammo_label.set_visible(true)
 	if reloading:
 		ammo_label.set_text("Ammo\nReloading...")
 	else:
 		ammo_label.set_text("Ammo\n%d / %d" % [current_ammo, clip_size])
 
 	if Input.is_action_pressed("primary_fire") && can_fire:
-		if current_ammo > 0 && !reloading:
+		if (current_ammo > 0 && !reloading) || clip_size == -1:
 			fire()
 		elif !reloading:
 			reload()
@@ -51,12 +59,15 @@ func fire() -> void:
 	animation_player.play("shoot")
 	audio_player.play()
 	can_fire = false
-	current_ammo -= 1
+	if !clip_size == -1:
+		current_ammo -= 1
 	check_collision()
 	yield(get_tree().create_timer(fire_rate), "timeout")
 	can_fire = true
 
 func reload() -> void:
+	if clip_size == -1:
+		return
 	reloading = true
 	reload_audio_player.play()
 	yield(get_tree().create_timer(reload_rate), "timeout")

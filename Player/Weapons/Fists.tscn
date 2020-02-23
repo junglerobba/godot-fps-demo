@@ -1,14 +1,14 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Player/Weapons/Shotgun.gd" type="Script" id=1]
-[ext_resource path="res://Assets/shotgun_reload.wav" type="AudioStream" id=2]
+[ext_resource path="res://Player/Weapons/Weapon.gd" type="Script" id=1]
+[ext_resource path="res://Assets/reload.wav" type="AudioStream" id=2]
 [ext_resource path="res://Assets/crosshair.png" type="Texture" id=3]
-[ext_resource path="res://Assets/shotgun_shot.wav" type="AudioStream" id=4]
-[ext_resource path="res://Assets/viewmodel_shotgun.png" type="Texture" id=5]
+[ext_resource path="res://Assets/fists_whoosh.wav" type="AudioStream" id=4]
+[ext_resource path="res://Assets/viewmodel_fists.png" type="Texture" id=5]
 
 [sub_resource type="Animation" id=1]
 resource_name = "shoot"
-length = 0.6
+length = 0.3
 step = 0.15
 tracks/0/type = "value"
 tracks/0/path = NodePath("Control/Sprite:frame")
@@ -17,20 +17,21 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.15, 0.3, 0.45, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 1, 2, 3, 3, 0 ]
+"values": [ 1, 0 ]
 }
 
-[node name="Shotgun" type="Node"]
+[node name="Fists" type="Node"]
 script = ExtResource( 1 )
-fire_rate = 1.0
-clip_size = 5
-damage = 0.25
-fire_range = 10
+fire_rate = 0.3
+clip_size = -1
+damage = 1.0
+fire_range = 2
 
 [node name="Crosshair" type="TextureRect" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -52,10 +53,10 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="Control"]
-position = Vector2( 315, -194 )
-scale = Vector2( 3.38261, 3.38261 )
+position = Vector2( 19.62, -120.5 )
+scale = Vector2( 3.28, 3.28 )
 texture = ExtResource( 5 )
-hframes = 4
+vframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/shoot = SubResource( 1 )

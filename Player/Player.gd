@@ -24,6 +24,10 @@ var weapon: Weapon = null
 var weapon_selected: int = 0
 var weapons: Array = [
 	{
+		'weapon': load("res://Player/Weapons/Fists.tscn"),
+		'ammo': -1
+	},
+	{
 		'weapon': load("res://Player/Weapons/Pistol.tscn"),
 		'ammo': -1
 	},

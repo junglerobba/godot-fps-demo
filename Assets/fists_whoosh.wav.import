@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/fists_whoosh.wav-28ee4549e767a9b83a75565f3a4bfd2d.sample"
+
+[deps]
+
+source_file="res://Assets/fists_whoosh.wav"
+dest_files=[ "res://.import/fists_whoosh.wav-28ee4549e767a9b83a75565f3a4bfd2d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

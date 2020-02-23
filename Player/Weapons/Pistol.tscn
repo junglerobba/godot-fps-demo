@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Player/Weapons/Pistol.gd" type="Script" id=1]
+[ext_resource path="res://Player/Weapons/Weapon.gd" type="Script" id=1]
 [ext_resource path="res://Assets/reload.wav" type="AudioStream" id=2]
 [ext_resource path="res://Assets/crosshair.png" type="Texture" id=3]
 [ext_resource path="res://Assets/gunshot.wav" type="AudioStream" id=4]
@@ -25,7 +25,6 @@ tracks/0/keys = {
 
 [node name="Pistol" type="Node"]
 script = ExtResource( 1 )
-damage = 0.5
 
 [node name="Crosshair" type="TextureRect" parent="."]
 anchor_left = 0.5

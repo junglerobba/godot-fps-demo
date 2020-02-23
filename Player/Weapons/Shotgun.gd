@@ -1,12 +1,7 @@
 extends Weapon
 
-export var fire_range: float = 10
-
 export var spread = 10
 export var number_of_pellets = 8
-
-func _ready() -> void:
-	raycast.cast_to = Vector3(0, 0, -fire_range)
 
 func fire() -> void:
 	animation_player.play("shoot")
