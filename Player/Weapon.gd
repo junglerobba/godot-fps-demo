@@ -40,11 +40,14 @@ func _process(_delta: float) -> void:
 func check_collision() -> void:
 	if raycast.is_colliding():
 		var collider: Object = raycast.get_collider()
+		print(collider)
 		if collider.is_in_group("Enemies"):
 			if collider.has_method("hit"):
 				collider.hit(damage)
 			else:
 				collider.queue_free()
+		elif collider is Interactable:
+			collider.interact()
 
 func fire() -> void:
 	animation_player.play("shoot")

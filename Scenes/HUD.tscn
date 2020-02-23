@@ -75,3 +75,12 @@ stream = ExtResource( 3 )
 
 [node name="ReloadSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
+
+[node name="InteractionLabel" type="Label" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -134.0
+text = "Press E to interact"
+align = 1
+valign = 1
