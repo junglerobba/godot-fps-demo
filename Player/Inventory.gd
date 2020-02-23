@@ -3,6 +3,7 @@ extends Node
 var weapon: Weapon = null
 
 var weapon_selected: int = 0
+var weapon_last_used: int = 0
 var weapons: Array = [
 	{
 		'weapon': load("res://Player/Weapons/Fists.tscn"),
@@ -37,12 +38,15 @@ func _input(event: InputEvent) -> void:
 		select_weapon((weapon_selected + 1) % len(weapons))
 	if Input.is_action_pressed("weapon_prev"):
 		select_weapon((weapon_selected + len(weapons) - 1) % len(weapons))
+	if Input.is_action_just_pressed("weapon_last_used"):
+		select_weapon(weapon_last_used)
 
 func select_weapon(index: int) -> void:
 	if !index >= len(weapons) && index >= 0:
 		if weapon != null:
 			weapons[weapon_selected].magazine = weapon.current_ammo
 			weapons[weapon_selected].ammo = weapon.reserve_ammo
+			weapon_last_used = weapon_selected
 			remove_child(weapon)
 			weapon = null
 		weapon_selected = index
