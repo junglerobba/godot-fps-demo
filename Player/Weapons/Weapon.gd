@@ -13,6 +13,7 @@ export var clip_size: int = 15
 export var reload_rate: float = 1.5
 export var damage: float = 1.0
 export var fire_range: int = 200
+export var automatic: bool = false
 
 var current_ammo: int
 var can_fire: bool = true
@@ -34,7 +35,9 @@ func _process(_delta: float) -> void:
 	else:
 		ammo_label.set_text("Ammo\n%d / %d" % [current_ammo, clip_size])
 
-	if Input.is_action_pressed("primary_fire") && can_fire:
+	if ((automatic && Input.is_action_pressed("primary_fire")) \
+	|| (!automatic && Input.is_action_just_pressed("primary_fire"))) \
+	&& can_fire:
 		if (current_ammo > 0 && !reloading) || clip_size == -1:
 			fire()
 		elif !reloading:
