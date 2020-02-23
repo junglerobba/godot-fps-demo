@@ -3,11 +3,7 @@ extends Weapon
 export var spread = 10
 export var number_of_pellets = 8
 
-func fire() -> void:
-	animation_player.play("shoot")
-	audio_player.play()
-	can_fire = false
-	current_ammo -= 1
+func check_collision() -> void:
 	var colliders = []
 	var number_of_hits = []
 	for i in range(number_of_pellets):
@@ -17,8 +13,6 @@ func fire() -> void:
 		number_of_hits = result[1]
 		raycast.force_raycast_update()
 	deal_damage(colliders, number_of_hits)
-	yield(get_tree().create_timer(fire_rate), "timeout")
-	can_fire = true
 
 func check_pellet_collision(colliders: Array, number_of_hits: Array) -> Array:
 	if raycast.is_colliding():
