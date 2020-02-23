@@ -2,7 +2,7 @@ extends Node
 
 var weapon: Weapon = null
 
-var weapon_selected: int = 0
+var weapon_selected: int = -1
 var weapon_last_used: int = 0
 var weapons: Array = [
 	{
@@ -28,7 +28,7 @@ var weapons: Array = [
 ]
 
 func _ready() -> void:
-	select_weapon(weapon_selected)
+	select_weapon(weapon_last_used)
 
 func _input(event: InputEvent) -> void:
 	for i in range(len(weapons)):
@@ -42,7 +42,7 @@ func _input(event: InputEvent) -> void:
 		select_weapon(weapon_last_used)
 
 func select_weapon(index: int) -> void:
-	if !index >= len(weapons) && index >= 0:
+	if !index >= len(weapons) && index >= 0 && index != weapon_selected:
 		if weapon != null:
 			weapons[weapon_selected].magazine = weapon.current_ammo
 			weapons[weapon_selected].ammo = weapon.reserve_ammo

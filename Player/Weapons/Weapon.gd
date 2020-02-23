@@ -18,10 +18,14 @@ export var automatic: bool = false
 
 var current_ammo: int
 var reserve_ammo: int
-var can_fire: bool = true
+var can_fire: bool = false
 var reloading: bool = false
 
+func on_ready() -> void:
+	can_fire = true
+
 func _ready() -> void:
+	animation_player.play("ready")
 	raycast.cast_to = Vector3(0, 0, -fire_range)
 
 func set_ammo(magazine: int, reserve: int) -> void:

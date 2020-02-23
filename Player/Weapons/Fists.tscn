@@ -1,10 +1,52 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Player/Weapons/Weapon.gd" type="Script" id=1]
 [ext_resource path="res://Assets/reload.wav" type="AudioStream" id=2]
 [ext_resource path="res://Assets/crosshair.png" type="Texture" id=3]
 [ext_resource path="res://Assets/fists_whoosh.wav" type="AudioStream" id=4]
 [ext_resource path="res://Assets/viewmodel_fists.png" type="Texture" id=5]
+
+[sub_resource type="Animation" id=2]
+resource_name = "ready"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 19.62, 69.5 ), Vector2( 19.62, -120.5 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "on_ready"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Control/Sprite:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 30.0, 0.0 ]
+}
 
 [sub_resource type="Animation" id=1]
 resource_name = "shoot"
@@ -59,6 +101,7 @@ texture = ExtResource( 5 )
 vframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/ready = SubResource( 2 )
 anims/shoot = SubResource( 1 )
 
 [node name="GunSound" type="AudioStreamPlayer" parent="."]
