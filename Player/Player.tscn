@@ -76,6 +76,9 @@ visible = false
 mesh = SubResource( 2 )
 material/0 = null
 
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource( 2 )
+
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 
 [node name="FootStep" type="AudioStreamPlayer" parent="."]
@@ -83,8 +86,3 @@ stream = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/crouch = SubResource( 3 )
-
-[node name="RayCast" type="RayCast" parent="."]
-
-[node name="Inventory" type="Node" parent="."]
-script = ExtResource( 2 )
