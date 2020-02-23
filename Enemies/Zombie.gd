@@ -12,6 +12,7 @@ onready var anim_player: AnimationPlayer = $AnimationPlayer
 var player: Player = null
 var dead: bool = false
 var health: float = 3.0
+var flinching: bool = false
 
 func _ready() -> void:
 	walk()
@@ -31,18 +32,21 @@ func _physics_process(delta: float) -> void:
 	move_and_collide(vec_to_player * speed * delta)
 
 func walk() -> void:
-	speed = MOVE_SPEED
-	anim_player.play("walk")
+	if !dead:
+		speed = MOVE_SPEED
+		anim_player.play("walk")
 
 func hit(damage: float) -> void:
 	speed = 0
 	health -= damage
-	if health > 0:
+	if health > 0 && !flinching:
+		flinching = true
 		anim_player.play("hit")
 		$DamageAudioPlayer.play()
 		yield(anim_player, "animation_finished")
+		flinching = false
 		walk()
-	else:
+	elif health <= 0:
 		kill()
 
 func kill() -> void:
