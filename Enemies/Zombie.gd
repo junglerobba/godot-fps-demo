@@ -2,6 +2,7 @@ extends KinematicBody
 
 const MOVE_SPEED: int = 3
 const GRAVITY: float = 0.98
+const DESPAWN_TIMER: float = 10.0
 
 var speed: int = MOVE_SPEED
 
@@ -49,6 +50,8 @@ func kill() -> void:
 	$CollisionShape.disabled = true
 	$DeathAudioPlayer.play()
 	anim_player.play("die")
+	yield(get_tree().create_timer(DESPAWN_TIMER), "timeout")
+	queue_free()
 
 func set_player(player: Player):
 	self.player = player
