@@ -41,11 +41,9 @@ func check_collision() -> void:
 	if raycast.is_colliding():
 		var collider: Object = raycast.get_collider()
 		print(collider)
-		if collider.is_in_group("Enemies"):
-			if collider.has_method("hit"):
-				collider.hit(damage)
-			else:
-				collider.queue_free()
+		if collider.is_in_group("Enemies") \
+		&& collider.has_method("hit"):
+			collider.hit(damage)
 		elif collider is Interactable:
 			collider.interact()
 

@@ -27,7 +27,7 @@ tracks/0/keys = {
 script = ExtResource( 1 )
 fire_rate = 1.0
 clip_size = 5
-damage = 5.0
+damage = 0.25
 
 [node name="Crosshair" type="TextureRect" parent="."]
 anchor_left = 0.5
