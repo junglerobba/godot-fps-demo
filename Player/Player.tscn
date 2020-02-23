@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Inventory.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/step01.wav" type="AudioStream" id=4]
 [ext_resource path="res://Player/Interaction.gd" type="Script" id=5]
+[ext_resource path="res://Assets/player_damage.wav" type="AudioStream" id=6]
+[ext_resource path="res://Assets/player_death.wav" type="AudioStream" id=7]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.75
@@ -40,6 +42,34 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector3( 0, 1, 0 ), Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "die"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 1, 0 ), Vector3( 0, 0.713017, -0.87569 ), Vector3( 0, -0.49932, -1.37951 ), Vector3( 1.17055, -0.49932, -1.37951 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Head:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( -38.627, 0, 0 ), Vector3( -85.13, 0, 0 ), Vector3( -17.5623, 84.8913, -88.4548 ) ]
 }
 
 [node name="Player" type="KinematicBody"]
@@ -86,3 +116,10 @@ stream = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/crouch = SubResource( 3 )
+anims/die = SubResource( 4 )
+
+[node name="DamageSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )

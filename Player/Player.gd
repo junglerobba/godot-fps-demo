@@ -8,22 +8,31 @@ export var crouch_speed: int = 3
 export var acceleration: int = 5
 export var gravity: float = 0.98
 export var jump_power: int = 30
-export var mouse_sensitivity: float = 0.1
+export var mouse_sensitivity: float = 0.05
+export var max_health: float = 100
 
 onready var head: Spatial = $Head
 onready var camera: Camera = $Head/Camera
 onready var footstep: AudioStreamPlayer = $FootStep
+onready var death_sound: AudioStreamPlayer = $DeathSound
+onready var damage_sound: AudioStreamPlayer = $DamageSound
 onready var anim_player: AnimationPlayer = $AnimationPlayer
 onready var crouch_raycast: RayCast = $"Head/CrouchRayCast"
+onready var health_bar = $"HUD/Bars/HealthBar"
+onready var health_label: Label = $"HUD/Bars/HealthLabel"
 
 var velocity: = Vector3()
 var camera_x_rotation: float = 0
 var crouched: bool = false
-
+var health: float = max_health
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	get_tree().call_group("Enemies", "set_player", self)
+	
+	health_label.set_text("%d" % health)
+	health_bar.max_value = max_health
+	health_bar.value = health
 
 func _input(event: InputEvent) -> void:
 	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED \
@@ -95,3 +104,16 @@ func is_moving_on_floor(velocity: Vector3) -> bool:
 	return (velocity.x > 5 || velocity.x < -5 \
 	|| velocity.z > 5 || velocity.z < -5) \
 	&& is_on_floor()
+	
+func hit(damage: float) -> void:
+	if health > 0:
+		damage_sound.play()
+		health -= damage
+		health_label.text = str(health)
+		health_bar.value = health
+		if health <= 0:
+			die()
+
+func die() -> void:
+	death_sound.play()
+	anim_player.play("die")

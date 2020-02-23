@@ -3,6 +3,9 @@ extends KinematicBody
 const MOVE_SPEED: int = 3
 const GRAVITY: float = 0.98
 const DESPAWN_TIMER: float = 10.0
+const ATTACK_RANGE: float = 6.0
+const ATTACK_INTERVAL: float = 2.0
+const ATTACK_DAMAGE: float = 10.0
 
 var speed: int = MOVE_SPEED
 
@@ -13,6 +16,7 @@ var player: Player = null
 var dead: bool = false
 var health: float = 3.0
 var flinching: bool = false
+var attacking: bool = false
 
 func _ready() -> void:
 	walk()
@@ -27,9 +31,14 @@ func _physics_process(delta: float) -> void:
 	var vec_to_player = player.translation - translation
 	vec_to_player = vec_to_player.normalized()
 	vec_to_player.y = -GRAVITY
-	raycast.cast_to = vec_to_player * 1.5
-
+	raycast.cast_to = vec_to_player * ATTACK_RANGE
+	
 	move_and_collide(vec_to_player * speed * delta)
+	
+	if raycast.is_colliding():
+		var collider = raycast.get_collider()
+		if collider != null && collider == player:
+			attack()
 
 func walk() -> void:
 	if !dead:
@@ -59,3 +68,12 @@ func kill() -> void:
 
 func set_player(player: Player):
 	self.player = player
+
+func attack() -> void:
+	if !attacking:
+		attacking = true
+		speed = 0
+		player.hit(ATTACK_DAMAGE)
+		yield(get_tree().create_timer(ATTACK_INTERVAL), "timeout")
+		attacking = false
+		speed = MOVE_SPEED
