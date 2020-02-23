@@ -55,14 +55,13 @@ func _input(event: InputEvent) -> void:
 			camera.rotate_x(deg2rad(-event.relative.y * mouse_sensitivity))
 			camera_x_rotation += x_delta
 	
-	if Input.is_action_just_pressed("inventory_01"):
-		select_weapon(0)
-	if Input.is_action_just_pressed("inventory_02"):
-		select_weapon(1)
-	if Input.is_action_just_pressed("inventory_03"):
-		select_weapon(2)
-	if Input.is_action_just_pressed("inventory_04"):
-		select_weapon(3)
+	for i in range(len(weapons)):
+		if Input.is_action_just_pressed("weapon_0%d" % (i + 1)):
+			select_weapon(i)
+	if Input.is_action_pressed("weapon_next"):
+		select_weapon((weapon_selected + 1) % len(weapons))
+	if Input.is_action_pressed("weapon_prev"):
+		select_weapon((weapon_selected + len(weapons) - 1) % len(weapons))
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
