@@ -1,5 +1,7 @@
 extends KinematicBody
 
+class_name Player
+
 export var speed: int = 10
 export var acceleration: int = 5
 export var gravity: float = 0.98
@@ -15,6 +17,7 @@ var camera_x_rotation: float = 0
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	get_tree().call_group("Enemies", "set_player", self)
 
 func _input(event: InputEvent) -> void:
 	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED \

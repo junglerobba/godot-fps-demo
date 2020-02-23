@@ -11,6 +11,7 @@ onready var reload_audio_player: AudioStreamPlayer = $"../HUD/ReloadSound"
 export var fire_rate: float = 0.6
 export var clip_size: int = 15
 export var reload_rate: float = 1.5
+export var damage: float = 1.0
 
 var current_ammo: int
 var can_fire: bool = true
@@ -32,14 +33,18 @@ func _process(_delta: float) -> void:
 			reload()
 
 	if Input.is_action_just_pressed("reload") \
-	&& !reloading:
+	&& !reloading \
+	&& can_fire:
 		reload()
 
 func check_collision() -> void:
 	if raycast.is_colliding():
 		var collider: Object = raycast.get_collider()
 		if collider.is_in_group("Enemies"):
-			collider.queue_free()
+			if collider.has_method("hit"):
+				collider.hit(damage)
+			else:
+				collider.queue_free()
 
 func fire() -> void:
 	animation_player.play("shoot")
