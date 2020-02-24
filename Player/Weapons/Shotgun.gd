@@ -8,10 +8,12 @@ func check_collision() -> void:
 	var number_of_hits = []
 	for i in range(number_of_pellets):
 		var random_spread = Vector3(rand_range(-spread, spread), rand_range(-spread, spread), 0)
+		raycast.rotation_degrees = random_spread
 		var result: = check_pellet_collision(colliders, number_of_hits)
 		colliders = result[0]
 		number_of_hits = result[1]
 		raycast.force_raycast_update()
+	raycast.cast_to = Vector3(0, 0, -fire_range)
 	deal_damage(colliders, number_of_hits)
 
 func check_pellet_collision(colliders: Array, number_of_hits: Array) -> Array:
