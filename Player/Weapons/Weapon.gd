@@ -88,7 +88,11 @@ func reload() -> void:
 	reload_audio_player.play()
 	yield(get_tree().create_timer(reload_rate), "timeout")
 	var ammo_remaining = current_ammo
-	current_ammo = clip_size if (reserve_ammo >= clip_size || reserve_ammo == -1) else reserve_ammo
+	current_ammo = clip_size if \
+		reserve_ammo >= clip_size \
+		|| reserve_ammo == -1 \
+		|| (reserve_ammo + ammo_remaining) >= clip_size \
+		else reserve_ammo + ammo_remaining
 	if reserve_ammo != -1:
 		reserve_ammo -= current_ammo - ammo_remaining
 	reloading = false
