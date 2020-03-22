@@ -116,4 +116,6 @@ func hit(damage: float) -> void:
 
 func die() -> void:
 	death_sound.play()
+	set_physics_process(false)
+	set_process_input(false)
 	anim_player.play("die")
