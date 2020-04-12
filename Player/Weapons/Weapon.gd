@@ -42,13 +42,13 @@ func _process(_delta: float) -> void:
 	else:
 		ammo_label.set_text("Ammo\n%d / %s" % [current_ammo, (str(reserve_ammo) if (reserve_ammo > -1) else "-")])
 
-	if Input.is_action_just_pressed("primary_fire") \
+	if Input.is_action_just_pressed("fire_primary") \
 	&& current_ammo == 0 && reserve_ammo == 0:
 		empty_audio_player.play()
 		return
 
-	if ((automatic && Input.is_action_pressed("primary_fire")) \
-	|| (!automatic && Input.is_action_just_pressed("primary_fire"))) \
+	if ((automatic && Input.is_action_pressed("fire_primary")) \
+	|| (!automatic && Input.is_action_just_pressed("fire_primary"))) \
 	&& can_fire:
 		if (current_ammo > 0 && !reloading) || clip_size == -1:
 			fire()
