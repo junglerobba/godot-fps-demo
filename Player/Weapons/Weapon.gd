@@ -2,6 +2,7 @@ extends Node
 
 class_name Weapon
 
+onready var player = $"../.."
 onready var raycast: RayCast = $"../../Head/Camera/RayCast"
 onready var ammo_label: Label = $"../../HUD/AmmoLabel"
 onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -9,12 +10,15 @@ onready var audio_player: AudioStreamPlayer = $GunSound
 onready var reload_audio_player: AudioStreamPlayer = $ReloadSound
 onready var empty_audio_player: AudioStreamPlayer = $EmptySound
 
+export var muzzle_flash: PackedScene = load("res://Player/Weapons/MuzzleFlash.tscn")
 export var fire_rate: float = 0.6
 export var clip_size: int = 15
 export var reload_rate: float = 1.5
 export var damage: float = 1.0
 export var fire_range: int = 200
 export var automatic: bool = false
+export var muzzle_flash_enabled: bool = false
+export var muzzle_flash_duration: float = 0.05
 
 var current_ammo: int
 var reserve_ammo: int
@@ -76,7 +80,13 @@ func fire() -> void:
 	if !clip_size == -1:
 		current_ammo -= 1
 	check_collision()
-	yield(get_tree().create_timer(fire_rate), "timeout")
+	if (muzzle_flash_enabled):
+		var muzzle_flash_instance = muzzle_flash.instance()
+		player.add_child(muzzle_flash_instance)
+		yield(get_tree().create_timer(muzzle_flash_duration), "timeout")
+		player.remove_child(muzzle_flash_instance)
+		muzzle_flash_instance.queue_free()
+	yield(get_tree().create_timer(fire_rate - muzzle_flash_duration if muzzle_flash_enabled else fire_rate), "timeout")
 	can_fire = true
 
 func reload() -> void:

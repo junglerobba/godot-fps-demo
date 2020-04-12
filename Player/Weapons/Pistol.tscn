@@ -7,7 +7,7 @@
 [ext_resource path="res://Assets/viewmodel_sprites.png" type="Texture" id=5]
 [ext_resource path="res://Assets/pistol_empty.wav" type="AudioStream" id=6]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "ready"
 length = 0.3
 tracks/0/type = "value"
@@ -37,8 +37,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "shoot"
+[sub_resource type="Animation" id=2]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("Control/Sprite:frame")
@@ -58,6 +57,7 @@ script = ExtResource( 1 )
 fire_rate = 0.3
 clip_size = 12
 damage = 0.5
+muzzle_flash_enabled = true
 
 [node name="Crosshair" type="TextureRect" parent="."]
 anchor_left = 0.5
@@ -86,8 +86,8 @@ texture = ExtResource( 5 )
 hframes = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/ready = SubResource( 2 )
-anims/shoot = SubResource( 1 )
+anims/ready = SubResource( 1 )
+anims/shoot = SubResource( 2 )
 
 [node name="GunSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )

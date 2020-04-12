@@ -1,0 +1,10 @@
+[gd_scene format=2]
+
+[node name="MuzzleFlash" type="Spatial"]
+
+[node name="OmniLight" type="OmniLight" parent="."]
+light_color = Color( 0.984314, 0.827451, 0.588235, 1 )
+light_energy = 0.66
+shadow_enabled = true
+omni_range = 25.0
+omni_attenuation = 9.18958
